@@ -46,9 +46,9 @@ df_google = df.groupby('Start_Time').nth(-1)
 df_google.columns = ['Google']
 df_google.plot(ax=ax)
 
-plt.title('Histogram of IQ')
+plt.title(f'Network Response {day:%d %B %Y}')
 plt.ylabel('Response Time (ms)')
-plt.xlabel('Time')
+plt.xlabel('Time of Day')
 
 ax.xaxis.set_major_locator(hours)
 ax.xaxis.set_major_formatter(hoursFmt)
