@@ -13,10 +13,9 @@ import datetime
 
 day = datetime.datetime(2017, 11, 19, 0, 0)
 
-
 fig, ax = plt.subplots()
 
-hours = mdates.HourLocator()   # every hour
+hours = mdates.HourLocator()
 hoursFmt = mdates.DateFormatter('%H:%M')
 
 path = 'csv'
@@ -26,11 +25,15 @@ df = pd.concat(
     (pd.read_csv(f) for f in all_files),
     ignore_index=True
 )
-df = df[df['Ip'] != '???']
+
 df['Start_Time'] = pd.to_datetime(df['Start_Time'],unit='s')
 
-mask = (df['Start_Time'] > day) & \
+mask = (
+    (df['Ip'] != '???') &
+    (df['Start_Time'] > day) &
     (df['Start_Time'] <= day + datetime.timedelta(days=1))
+)
+
 df = df.loc[mask]
 
 df.set_index('Start_Time', inplace=True)
